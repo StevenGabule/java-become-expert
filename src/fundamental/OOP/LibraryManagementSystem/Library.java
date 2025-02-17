@@ -1,8 +1,18 @@
 package fundamental.OOP.LibraryManagementSystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Library {
+  private static List<Book> books = new ArrayList<>();
   private static int totalBooks = 0;
   private static int borrowedBooks = 0;
+
+  public static void addBook(Book book) {
+    books.add(book);
+    totalBooks++;
+    System.out.println("Added Book: '" + book.getTitle() + "' by " + book.getAuthor());
+  }
 
   public static void incrementBorrowBooks() {
     borrowedBooks++;
@@ -18,8 +28,14 @@ public class Library {
     System.out.println("Available Books: " + (totalBooks - borrowedBooks));
   }
 
-  public static void addBooks(Book book) {
-    totalBooks++;
-    System.out.println("Added Book: '" + book.getTitle() + "' by " + book.getAuthor());
+  // Search for books by title or author
+  public static List<Book> searchBooks(String query) {
+    List<Book> results = new ArrayList<>();
+    for (Book book : books) {
+      if (book.getTitle().toLowerCase().contains(query.toLowerCase()) || book.getAuthor().toLowerCase().contains(query.toLowerCase())) {
+        results.add(book);
+      }
+    }
+    return results;
   }
 }
